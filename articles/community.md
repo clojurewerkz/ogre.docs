@@ -1,11 +1,11 @@
 ---
-title: "Project Name: Community"
+title: "Ogre: Community"
 layout: article
 ---
 
 ## Mailing List
 
-[Project has a mailing list](). Feel free to join it and ask any questions you may have.
+[Ogre has a mailing list](https://groups.google.com/forum/#!forum/clojure-titanium). Feel free to join it and ask any questions you may have.
 
 
 ## News & Announcements on Twitter
@@ -21,7 +21,7 @@ Project Name is part of the group of libraries known as ClojureWerkz, together w
 
 ## Reporting Issues
 
-If you find a bug, poor default, missing feature or find any part of the API inconvenient, please [file an issue](github.com/.../issues) on Github.
+If you find a bug, poor default, missing feature or find any part of the API inconvenient, please [file an issue](https://github.com/clojurewerkz/ogre/issues) on Github.
 If possible, try to explain what behavior you expected and why. Bonus points for contributing failing test cases.
 
 

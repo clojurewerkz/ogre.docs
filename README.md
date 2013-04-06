@@ -1,7 +1,7 @@
-# Project Name Documentation
+# Ogre Documentation
 
-This is a documentation site for [Project Name](). Copy or clone me and adapt for your project
-that needs documentation guides similar to [rubyamqp.info](http://rubyamqp.info), [clojuremongodb.info](http://clojuremongodb.info) and so on.
+This is a documentation site for [Ogre](http://ogre.clojurewerkz.org). Copy or clone me and adapt for your project
+that needs documentation guides similar to [clojureriak.info](http://clojureriak.info), [clojuremongodb.info](http://clojuremongodb.info) and so on.
 
 
 ## Install Dependencies

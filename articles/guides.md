@@ -1,11 +1,11 @@
 ---
-title: "Project Name: all documentation guides"
+title: "Ogre: all documentation guides"
 layout: article
 ---
 
 ## Guide list
 
-[Project Name documentation](https://github.com/clojurewerkz/) is organized as a number of guides, covering all kinds of topics.
+[Ogre documentation](https://github.com/clojurewerkz/ogre.docs) is organized as a number of guides, covering all kinds of topics.
 
 We recommend that you read these guides, if possible, in this order:
 
@@ -35,6 +35,8 @@ This guide covers:
 
 ## Tell Us What You Think!
 
-Please take a moment to tell us what you think about this guide on Twitter or the [Project Name mailing list](/)
+Please take a moment to tell us what you think about this guide on Twitter or the [Ogre mailing list](https://groups.google.com/forum/#!forum/clojure-titanium)
 
-Let us know what was unclear or what has not been covered. Maybe you do not like the guide style or grammar or discover spelling mistakes. Reader feedback is key to making the documentation better.
+Let us know what was unclear or what has not been covered. Maybe you
+do not like the guide style or grammar or discover spelling
+mistakes. Reader feedback is key to making the documentation better.
