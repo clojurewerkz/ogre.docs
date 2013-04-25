@@ -40,34 +40,33 @@ Go back to the results from n-steps ago.
 ### select
 
 Get a list of named steps, with optional functions for post processing
-round robin style. (This will be returned as a map when Pipes is
-upgraded to 2.3.0).
+round robin style.
 
 ```clojure
 (q/query (g/find-by-id 1)
          (q/as "a")
-         (q/--> :knows)
+         (q/--> [:knows])
          (q/as "b")
          q/select
-         q/all-into-vecs!)
-;;([#<TinkerVertex v[1]> #<TinkerVertex v[2]>] 
-;; [#<TinkerVertex v[1]> #<TinkerVertex v[4]>])         
+         q/all-into-maps!)
+;;({:a #<TinkerVertex v[1]>, :b #<TinkerVertex v[2]>} 
+;; {:a #<TinkerVertex v[1]>, :b #<TinkerVertex v[4]>})
 
 (q/query (g/find-by-id 1)
          (q/as "a")
-         (q/--> :knows)
+         (q/--> [:knows])
          (q/as "b")
          (q/select (q/prop :name))
-         q/all-into-vecs!)
-;;(["marko" "vadas"] ["marko" "josh"])
+         q/all-into-maps!)
+;;({:a "marko", :b "vadas"} {:a "marko", :b "josh"})
 
 (q/query (g/find-by-id 1)
          (q/as "a")
-         (q/--> :knows)
+         (q/--> [:knows])
          (q/as "b")
          (q/select (q/prop :name) g/get-id)
-         q/all-into-vecs!)
-;;(["marko" "2"] ["marko" "4"])
+         q/all-into-maps!)
+;;({:a "marko", :b "2"} {:a "marko", :b "4"})
 ```
 
 ### select-only
@@ -83,9 +82,10 @@ processing again.
          q/-->
          (q/as "c")       
          (q/select-only ["a" "b"])
-         q/all-into-vecs!)
-;;([#<TinkerVertex v[1]> #<TinkerVertex v[4]>] 
-;; [#<TinkerVertex v[1]> #<TinkerVertex v[4]>])
+         q/all-into-maps!)
+;;({:a #<TinkerVertex v[1]>, :b #<TinkerVertex v[4]>} 
+;; {:a #<TinkerVertex v[1]>, :b #<TinkerVertex v[4]>})
+
 
 (q/query (g/find-by-id 1)
          (q/as "a")
@@ -94,18 +94,18 @@ processing again.
          q/-->
          (q/as "c")       
          (q/select-only ["a" "c"] (q/prop :name))
-         q/all-into-vecs!)
-;;(["marko" "ripple"] ["marko" "lop"])
+         q/all-into-maps!)
+;;({:a "marko", :c "ripple"} {:a "marko", :c "lop"})
 
 (q/query (g/find-by-id 1)
          (q/as "a")
-         (q/--> :knows)
+         (q/--> [:knows])
          (q/as "b")
          q/-->
          (q/as "c")                
          (q/select-only ["a" "c"] (q/prop :name) g/get-id)
-         q/all-into-vecs!)
-;;(["marko" "5"] ["marko" "3"])
+         q/all-into-maps!)
+;;({:a "marko", :c "5"} {:a "marko", :c "3"})
 ```
 
 ### loop

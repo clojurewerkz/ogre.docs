@@ -25,6 +25,7 @@ Gets the unique identifier of the element.
          q/into-vec!)
 ;;["2" "4" "3"]
 
+;;You should understand why this breaks.
 (q/query (g/find-by-id 1)
          q/id
          q/-->         

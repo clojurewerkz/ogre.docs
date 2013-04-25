@@ -11,10 +11,11 @@ vertices are connected.
 ### out / -->
 
 `-->` or `out` gets the out adjacent vertices (the functions do
-exactly the same thing, one just looks cooler). Additionally, labels
-can be supplied that so that the query only traverse edges with those
-labels. This also applies to the other traversal functions where it
-makes sense (any function that is named with arrows).
+exactly the same thing, one just looks cooler). Additionally, a list
+of labels can be supplied that so that the query only traverse edges
+with labels in the provided collection. This also applies to the other
+traversal functions where it makes sense (any function that is named
+with arrows).
 
 ``` clojure
 (q/query (g/find-by-id 4)
@@ -28,17 +29,17 @@ makes sense (any function that is named with arrows).
 ;;[#<TinkerVertex v[5]> #<TinkerVertex v[3]>]
 
 (q/query (g/find-by-id 4)
-         (q/--> :created)
+         (q/--> [:created])
          q/into-vec!)
 ;;[#<TinkerVertex v[5]> #<TinkerVertex v[3]>]
 
 (q/query (g/find-by-id 4)
-         (q/--> :hates)
+         (q/--> [:hates])
          q/into-vec!)
 ;;[]
 
 (q/query (g/find-by-id 4)
-         (q/--> :created :hates)
+         (q/--> [:created :hates])
          q/into-vec!)
 ;;[#<TinkerVertex v[5]> #<TinkerVertex v[3]>]
 ```

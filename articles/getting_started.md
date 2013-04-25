@@ -57,12 +57,12 @@ The version scheme for Ogre is as follows:
 authors of Gremlin are the ones who will be causing most of the
 changes to Ogre to hapepn. Ogre is a mere wrapper around their work
 and the version scheme acknowledges that directly. Thus, the current
-release is `2.3.0.1`, meaning that the current release uses Gremlin
-`2.3.0` and has undergone one major versions itself so far since
+release is `2.3.0.2`, meaning that the current release uses Gremlin
+`2.3.0` and has undergone two major versions itself so far since
 release.
 
 To get started with Ogre, include the following dependency for
-leiningen: `[clojurewerkz/ogre "2.3.0.1"]`.
+leiningen: `[clojurewerkz/ogre "2.3.0.2"]`.
 
 ### The TinkerGraph
 
