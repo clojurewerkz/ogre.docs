@@ -135,7 +135,7 @@ a vector.
 (q/query (g/find-by-id 1)
          q/-->
          q/into-vec!)
-;;[#<TinkerVertex v[2]> #<TinkerVertex v[4]> #<TinkerVertex v[3]>]
+;= [#<TinkerVertex v[2]> #<TinkerVertex v[4]> #<TinkerVertex v[3]>]
 ```
 
 Let's break this down: 
@@ -165,7 +165,7 @@ So far so good. But, I wonder, who is the dashing rogue behind
          q/into-vec!
          first
          ((q/prop :name)))
-;;"vadas"
+;= "vadas"
 ```
 
 `q/query` isn't just about running Gremlin queries. Remember, it's

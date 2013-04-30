@@ -20,7 +20,7 @@ structures.
 (q/query (g/find-by-id 1)
          q/-->
          q/count!)
-;;3
+;= 3
 ``` 
 
 ### to-list!
@@ -33,7 +33,7 @@ don't want to use this directly.
 (q/query (g/find-by-id 1)
          q/-->
          q/to-list!)
-;;#<ArrayList [v[2], v[4], v[3]]>
+;= #<ArrayList [v[2], v[4], v[3]]>
 ``` 
 
 ### into-vec!
@@ -44,7 +44,7 @@ Gets the objects and sticks them inside of a vector.
 (q/query (g/find-by-id 1)
          q/-->
          q/into-vec!)
-;;[#<TinkerVertex v[2]> #<TinkerVertex v[4]> #<TinkerVertex v[3]>]
+;= [#<TinkerVertex v[2]> #<TinkerVertex v[4]> #<TinkerVertex v[3]>]
 ``` 
 
 ### into-set!
@@ -55,7 +55,7 @@ Gets the objects and sticks them inside of a set.
 (q/query (g/find-by-id 1)
          q/-->         
          q/into-set!)
-;;#{#<TinkerVertex v[2]> #<TinkerVertex v[3]> #<TinkerVertex v[4]>}
+;= #{#<TinkerVertex v[2]> #<TinkerVertex v[3]> #<TinkerVertex v[4]>}
 ``` 
 
 ### first-of!
@@ -65,7 +65,7 @@ Gets the first object of the returned list.
 ``` clojure
 (q/query (g/find-by-id 1)
          q/first-of!)
-;;#<TinkerVertex v[1]>
+;= #<TinkerVertex v[1]>
 ``` 
 
 ### first-into-vec!
@@ -77,13 +77,13 @@ Gets the first object of the returned list and puts it into a vector.
          (q/property :name)
          q/path
          q/into-vec!)
-;;[#<ArrayList [v[1], marko]>]         
+;= [#<ArrayList [v[1], marko]>]         
 
 (q/query (g/find-by-id 1)
          (q/property :name)
          q/path
          q/first-into-vec!)
-;;[#<TinkerVertex v[1]> "marko"]
+;= [#<TinkerVertex v[1]> "marko"]
 ``` 
 
 ### first-into-set!
@@ -96,7 +96,7 @@ Gets the first object of the returned list and puts it into a set.
          q/id
          q/gather
          q/first-into-set!)
-;;#{"2" "3" "4"}         
+;= #{"2" "3" "4"}         
 ```
 
 ### first-into-map!
@@ -107,7 +107,7 @@ Gets the first object of the returned list and puts it into a set.
 (q/query (g/find-by-id 1)
           q/map
           q/first-into-map!)
-;;{:name "marko", :age 29}
+;= {:name "marko", :age 29}
 ```
 
 ### all-into-vecs!
@@ -121,7 +121,7 @@ objects.
          (q/path (q/prop :age)
                  (q/prop :name))
          q/all-into-vecs!)
-;;([29 "vadas"] [29 "josh"] [29 "lop"])
+;= ([29 "vadas"] [29 "josh"] [29 "lop"])
 ```                        
 
 ### all-into-sets!
@@ -135,7 +135,7 @@ objects.
          (q/path (q/prop :age)
                  (q/prop :name))
          q/all-into-sets!)
-;;(#{"vadas" 29} #{"josh" 29} #{"lop" 29})
+;= (#{"vadas" 29} #{"josh" 29} #{"lop" 29})
 ```                        
 
 ### all-into-maps!
@@ -149,13 +149,13 @@ objects.
          q/<->
          q/map
          q/all-into-maps!)
-;; ({:name "marko", :age 29} 
-;;  {:name "marko", :age 29} 
-;;  {:name "ripple", :lang "java"} 
-;;  {:name "lop", :lang "java"} 
-;;  {:name "marko", :age 29} 
-;;  {:name "josh", :age 32} 
-;;  {:name "peter", :age 35})         
+;= ({:name "marko", :age 29} 
+;=  {:name "marko", :age 29} 
+;=  {:name "ripple", :lang "java"} 
+;=  {:name "lop", :lang "java"} 
+;=  {:name "marko", :age 29} 
+;=  {:name "josh", :age 32} 
+;=  {:name "peter", :age 35})         
 ```                        
 
 ### Reduce like functions are next

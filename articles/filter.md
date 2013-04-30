@@ -15,14 +15,14 @@ A range filter that emits the objects within a range.
 (q/query (g/find-by-id 1)
          (q/-->)
          (q/into-vec!))
-;;[#<TinkerVertex v[2]> #<TinkerVertex v[4]> #<TinkerVertex v[3]>]         
+;= [#<TinkerVertex v[2]> #<TinkerVertex v[4]> #<TinkerVertex v[3]>]         
 
 
 (q/query (g/find-by-id 1)
          (q/-->)
          (q/range 0 1)
          (q/into-vec!))
-;;[#<TinkerVertex v[2]> #<TinkerVertex v[4]>]         
+;= [#<TinkerVertex v[2]> #<TinkerVertex v[4]>]         
 ```
 
 ### dedup
@@ -35,21 +35,21 @@ the values that the pipeline will consider when filtering
          q/<->
          (q/property :name)
          (q/into-vec!))         
-;;["marko" "josh" "peter" "marko" "vadas" "josh" "lop" "lop" "josh" "marko" "ripple" "lop"]
+;= ["marko" "josh" "peter" "marko" "vadas" "josh" "lop" "lop" "josh" "marko" "ripple" "lop"]
 
 (q/query (g/get-vertices)
          q/<->
          q/dedup
          (q/property :name)
          (q/into-vec!))
-;;["marko" "josh" "peter" "vadas" "lop" "ripple"]                         
+;= ["marko" "josh" "peter" "vadas" "lop" "ripple"]                         
 
 (q/query (g/get-vertices)
           q/<->
           (q/dedup (partial g/get-property :lang))
           (q/property :name)
           (q/into-vec!))
-;;["marko" "lop"]          
+;= ["marko" "lop"]          
 ```                         
 
 Note that `g/get-vertices` retrieves all of the vertices of the graph
@@ -65,7 +65,7 @@ Filter out the provided objects.
          q/<--
          (q/except [(g/find-by-id 1)])
          (q/into-vec!))         
-;;[#<TinkerVertex v[4]> #<TinkerVertex v[6]>]         
+;= [#<TinkerVertex v[4]> #<TinkerVertex v[6]>]         
 ```                         
 
 ### filter
@@ -78,7 +78,7 @@ Uses a predicate to decide whether an object should pass.
          (q/filter (fn [v] (= "java" (.getProperty v "lang"))))
          q/map
          (q/all-into-maps!))         
-;;({:name "lop", :lang "java"} {:name "ripple", :lang "java"})         
+;= ({:name "lop", :lang "java"} {:name "ripple", :lang "java"})         
 ```                         
 
 
@@ -92,12 +92,12 @@ Clojure operations for comparisons can also be supplied:
 (q/query (g/get-vertices)
          (q/has :name "marko")                    
          (q/into-vec!))
-;;[#<TinkerVertex v[1]>]         
+;= [#<TinkerVertex v[1]>]         
 
 (q/query (g/get-vertices)
          (q/has :age > (int 30))                    
          (q/into-vec!))
-[#<TinkerVertex v[6]> #<TinkerVertex v[4]>]         
+;= [#<TinkerVertex v[6]> #<TinkerVertex v[4]>]         
 ```                      
 
 ### has-not
@@ -108,14 +108,14 @@ Allows an element if it does not have a particular property.
 (q/query (g/get-vertices)
          (q/has-not :name "marko")                    
          (q/into-vec!))
-;;[#<TinkerVertex v[3]> #<TinkerVertex v[2]> 
-;; #<TinkerVertex v[6]> #<TinkerVertex v[5]> 
-;; #<TinkerVertex v[4]>]
+;= [#<TinkerVertex v[3]> #<TinkerVertex v[2]> 
+;=  #<TinkerVertex v[6]> #<TinkerVertex v[5]> 
+;=  #<TinkerVertex v[4]>]
 
 (q/query (g/get-vertices)
          (q/has-not :age > (int 30))                    
          (q/into-vec!))
-;;[#<TinkerVertex v[2]> #<TinkerVertex v[1]>]         
+;= [#<TinkerVertex v[2]> #<TinkerVertex v[1]>]         
 ```                      
 
 ### interval
@@ -129,23 +129,23 @@ and end interval.
          (q/interval :weight 0 0.6)
          (q/in-vertex)
          (q/into-vec!))
-;;[#<TinkerVertex v[2]> #<TinkerVertex v[3]>]         
+;= [#<TinkerVertex v[2]> #<TinkerVertex v[3]>]         
 ```         
 ### random
 
 Emits the incoming objects, each with the supplied chance.
 
 ```clojure
-;; Results may vary
+;=   Results may vary
 (q/query (g/get-vertices)
          (q/random 0.5)
          (q/into-vec!))
-[#<TinkerVertex v[6]> #<TinkerVertex v[4]>]
+;= [#<TinkerVertex v[6]> #<TinkerVertex v[4]>]
 
 (q/query (g/get-vertices)
          (q/random 0.5)
          (q/into-vec!))
-[#<TinkerVertex v[3]> #<TinkerVertex v[1]> #<TinkerVertex v[6]> #<TinkerVertex v[4]>]
+;= [#<TinkerVertex v[3]> #<TinkerVertex v[1]> #<TinkerVertex v[6]> #<TinkerVertex v[4]>]
 ```
 ### retain
 
@@ -156,7 +156,7 @@ Only allows elements in the supplied collection to pass.
          (q/-->)      
          (q/retain [(g/find-by-id 2)])
          (q/into-vec!))
-;;[#<TinkerVertex v[2]>]         
+;= [#<TinkerVertex v[2]>]         
 ```
 
 ### Annotating pipes is next

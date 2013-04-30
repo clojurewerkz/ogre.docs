@@ -17,22 +17,22 @@ Gets the unique identifier of the element.
 (q/query (g/find-by-id 1)
          q/id
          q/into-vec!)
-;;["1"]
+;= ["1"]
 
 (q/query (g/find-by-id 1)
          q/-->
          q/id
          q/into-vec!)
-;;["2" "4" "3"]
+;= ["2" "4" "3"]
 
-;;You should understand why this breaks.
+;=You should understand why this breaks.
 (q/query (g/find-by-id 1)
          q/id
          q/-->         
          q/into-vec!)
-;;ClassCastException java.lang.String cannot be cast to  com.tinkerpop.blueprints.Vertex  
-;;com.tinkerpop.gremlin.pipes.transform.VerticesVerticesPipe.processNextStart 
-;;(VerticesVerticesPipe.java:37)
+;= ClassCastException java.lang.String cannot be cast to  com.tinkerpop.blueprints.Vertex  
+;= com.tinkerpop.gremlin.pipes.transform.VerticesVerticesPipe.processNextStart 
+;= (VerticesVerticesPipe.java:37)
 ```
 
 ### property
@@ -43,13 +43,13 @@ Get the property value of an element.
 (q/query (g/find-by-id 1)
          (q/property :name)
          q/into-vec!)
-;;["marko"]
+;= ["marko"]
 
 (q/query (g/find-by-id 1)
          q/-->
          (q/property :name)
          q/into-vec!)
-;;["vadas" "josh" "lop"]
+;= ["vadas" "josh" "lop"]
 ```
 
 
@@ -62,7 +62,7 @@ Get the label of an edge.
          q/--E>
          q/label
          q/into-vec!)
-;;["knows" "knows" "created"]
+;= ["knows" "knows" "created"]
 ``` 
 
 ### map
@@ -73,18 +73,18 @@ Get the property map of the graph element.
 (q/query (g/find-by-id 1)
          q/map
          q/into-vec!)
-;;[#<HashMap {name=marko, age=29}>]
+;= [#<HashMap {name=marko, age=29}>]
 
 (q/query (g/find-by-id 1)
          q/map
          q/first-into-map!)
-;;{:name "marko", :age 29}
+;= {:name "marko", :age 29}
 
 (q/query (g/find-by-id 1)
          q/-->
          q/map
          q/all-into-maps!)
-;;({:name "vadas", :age 27} {:name "josh", :age 32} {:name "lop", :lang "java"})
+;= ({:name "vadas", :age 27} {:name "josh", :age 32} {:name "lop", :lang "java"})
 ``` 
 
 We now see two new functions in addition to `q/map`: `first-into-map!`
@@ -105,39 +105,39 @@ path.
          q/<->
          q/path
          q/all-into-vecs!)
-;; ([#<TinkerVertex v[1]> #<TinkerVertex v[2]> #<TinkerVertex v[1]>] 
-;;  [#<TinkerVertex v[1]> #<TinkerVertex v[4]> #<TinkerVertex v[1]>] 
-;;  [#<TinkerVertex v[1]> #<TinkerVertex v[4]> #<TinkerVertex v[5]>] 
-;;  [#<TinkerVertex v[1]> #<TinkerVertex v[4]> #<TinkerVertex v[3]>] 
-;;  [#<TinkerVertex v[1]> #<TinkerVertex v[3]> #<TinkerVertex v[1]>] 
-;;  [#<TinkerVertex v[1]> #<TinkerVertex v[3]> #<TinkerVertex v[4]>] 
-;;  [#<TinkerVertex v[1]> #<TinkerVertex v[3]> #<TinkerVertex v[6]>])         
+;= ([#<TinkerVertex v[1]> #<TinkerVertex v[2]> #<TinkerVertex v[1]>] 
+;=  [#<TinkerVertex v[1]> #<TinkerVertex v[4]> #<TinkerVertex v[1]>] 
+;=  [#<TinkerVertex v[1]> #<TinkerVertex v[4]> #<TinkerVertex v[5]>] 
+;=  [#<TinkerVertex v[1]> #<TinkerVertex v[4]> #<TinkerVertex v[3]>] 
+;=  [#<TinkerVertex v[1]> #<TinkerVertex v[3]> #<TinkerVertex v[1]>] 
+;=  [#<TinkerVertex v[1]> #<TinkerVertex v[3]> #<TinkerVertex v[4]>] 
+;=  [#<TinkerVertex v[1]> #<TinkerVertex v[3]> #<TinkerVertex v[6]>])         
 
 (q/query (g/find-by-id 1)
          q/<->
          q/<->
          (q/path (q/prop :name))
          q/all-into-vecs!)
-;;(["marko" "vadas" "marko"] 
-;; ["marko" "josh" "marko"] 
-;; ["marko" "josh" "ripple"] 
-;; ["marko" "josh" "lop"] 
-;; ["marko" "lop" "marko"] 
-;; ["marko" "lop" "josh"] 
-;; ["marko" "lop" "peter"])
+;= (["marko" "vadas" "marko"] 
+;=  ["marko" "josh" "marko"] 
+;=  ["marko" "josh" "ripple"] 
+;=  ["marko" "josh" "lop"] 
+;=  ["marko" "lop" "marko"] 
+;=  ["marko" "lop" "josh"] 
+;=  ["marko" "lop" "peter"])
 
 (q/query (g/find-by-id 1)
          q/<->
          q/<->
          (q/path (q/prop :name) (fn [v] (count (.getProperty v "name"))))
          q/all-into-vecs!)
-;;(["marko" 5 "marko"] 
-;; ["marko" 4 "marko"] 
-;; ["marko" 4 "ripple"] 
-;; ["marko" 4 "lop"] 
-;; ["marko" 3 "marko"] 
-;; ["marko" 3 "josh"] 
-;; ["marko" 3 "peter"])         
+;= (["marko" 5 "marko"] 
+;=  ["marko" 4 "marko"] 
+;=  ["marko" 4 "ripple"] 
+;=  ["marko" 4 "lop"] 
+;=  ["marko" 3 "marko"] 
+;=  ["marko" 3 "josh"] 
+;=  ["marko" 3 "peter"])         
 ``` 
 
 Note that again we have introduced a new function `all-into-vecs!`.
@@ -152,14 +152,14 @@ Transform applies a function to each object.
 (q/query (g/find-by-id 1)
          (q/transform (q/prop :name))
          q/first-of!)
-;;"marko"         
+;= "marko"         
 
 (q/query (g/find-by-id 1)
           q/--E>
           q/label
           (q/transform count)
           q/into-vec!)         
-;;[5 5 7]          
+;= [5 5 7]          
 ``` 
 
 `first-of!` executes the query and gets the first element from the
