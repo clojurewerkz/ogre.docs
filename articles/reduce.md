@@ -16,19 +16,19 @@ function is provided, then a default sort order is used.
 (q/query (g/get-vertices)
          (q/property :name)
          q/into-vec!)                         
-;;["lop" "vadas" "marko" "peter" "ripple" "josh"]
+;= ["lop" "vadas" "marko" "peter" "ripple" "josh"]
 
 (q/query (g/get-vertices)
          (q/property :name)
          q/order
          q/into-vec!)                         
-;;["josh" "lop" "marko" "peter" "ripple" "vadas"]         
+;= ["josh" "lop" "marko" "peter" "ripple" "vadas"]         
 
 (q/query (g/get-vertices)
          (q/property :name)
          (q/order (fn [a b] (compare b a)))
          q/into-vec!)                         
-["vadas" "ripple" "peter" "marko" "lop" "josh"]
+;= ["vadas" "ripple" "peter" "marko" "lop" "josh"]
 ```
 
 ### gather
@@ -42,14 +42,14 @@ gathered list with the provided function.
          q/id
          q/gather
          q/first-into-vec!)
-;;["2" "3" "4"]         
+;= ["2" "3" "4"]         
 
 (q/query (g/find-by-id 1)
          q/-->
          q/id
          (q/gather count)
          q/into-vec!)
-;;3
+;= 3
 ```
 
 ### Filters are next

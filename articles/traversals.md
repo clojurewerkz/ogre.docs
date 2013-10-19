@@ -21,27 +21,27 @@ with arrows).
 (q/query (g/find-by-id 4)
          q/-->
          q/into-vec!)
-;;[#<TinkerVertex v[5]> #<TinkerVertex v[3]>]
+;= [#<TinkerVertex v[5]> #<TinkerVertex v[3]>]
 
 (q/query (g/find-by-id 4)
          q/out
          q/into-vec!)
-;;[#<TinkerVertex v[5]> #<TinkerVertex v[3]>]
+;= [#<TinkerVertex v[5]> #<TinkerVertex v[3]>]
 
 (q/query (g/find-by-id 4)
          (q/--> [:created])
          q/into-vec!)
-;;[#<TinkerVertex v[5]> #<TinkerVertex v[3]>]
+;= [#<TinkerVertex v[5]> #<TinkerVertex v[3]>]
 
 (q/query (g/find-by-id 4)
          (q/--> [:hates])
          q/into-vec!)
-;;[]
+;= []
 
 (q/query (g/find-by-id 4)
          (q/--> [:created :hates])
          q/into-vec!)
-;;[#<TinkerVertex v[5]> #<TinkerVertex v[3]>]
+;= [#<TinkerVertex v[5]> #<TinkerVertex v[3]>]
 ```
 
 ### out-edges / --E>
@@ -52,12 +52,12 @@ Get the outgoing edges of the vertex.
 (q/query (g/find-by-id 4)
          q/--E>
          q/into-vec!)
-;;[#<TinkerEdge e[10][4-created->5]> #<TinkerEdge e[11][4-created->3]>]
+;= [#<TinkerEdge e[10][4-created->5]> #<TinkerEdge e[11][4-created->3]>]
 
 (q/query (g/find-by-id 4)
          q/out-edges
          q/into-vec!)
-;;[#<TinkerEdge e[10][4-created->5]> #<TinkerEdge e[11][4-created->3]>]
+;= [#<TinkerEdge e[10][4-created->5]> #<TinkerEdge e[11][4-created->3]>]
 ```
 
 ### out-vertex
@@ -69,7 +69,7 @@ Get the outgoing tail vertex of the edge.
          q/--E>
          q/out-vertex
          q/into-vec!)
-;;[#<TinkerVertex v[4]> #<TinkerVertex v[4]>]
+;= [#<TinkerVertex v[4]> #<TinkerVertex v[4]>]
 ```
 
 Conceptually, this might seem same strange at first. Why does it
@@ -87,7 +87,7 @@ Get the adjacent vertices pointing to the vertex.
 (q/query (g/find-by-id 3)
          q/<--
          q/into-vec!)
-;;[#<TinkerVertex v[1]> #<TinkerVertex v[4]> #<TinkerVertex v[6]>]
+;= [#<TinkerVertex v[1]> #<TinkerVertex v[4]> #<TinkerVertex v[6]>]
 ```
 
 ### in-edges / <E--
@@ -98,9 +98,9 @@ Get the incoming edges of the vertex.
 (q/query (g/find-by-id 3)
          q/<E--
          q/into-vec!)
-;;[#<TinkerEdge e[9][1-created->3]> 
-;; #<TinkerEdge e[11][4-created->3]> 
-;; #<TinkerEdge e[12][6-created->3]>]
+;= [#<TinkerEdge e[9][1-created->3]> 
+;=  #<TinkerEdge e[11][4-created->3]> 
+;=  #<TinkerEdge e[12][6-created->3]>]
 ```
 
 ### in-vertex
@@ -112,7 +112,7 @@ Get incoming head vertex of the edge.
          q/<E--
          q/in-vertex
          q/into-vec!)
-;;[#<TinkerVertex v[3]> #<TinkerVertex v[3]> #<TinkerVertex v[3]>]
+;= [#<TinkerVertex v[3]> #<TinkerVertex v[3]> #<TinkerVertex v[3]>]
 ```
 
 ### both / <->
@@ -123,7 +123,7 @@ Get any vertices that are connected to the given vertex.
 (q/query (g/find-by-id 4)
          q/<->
          q/into-vec!)
-;;[#<TinkerVertex v[1]> #<TinkerVertex v[5]> #<TinkerVertex v[3]>]
+;= [#<TinkerVertex v[1]> #<TinkerVertex v[5]> #<TinkerVertex v[3]>]
 ```
 
 ### both-edges / `<E>`
@@ -134,9 +134,9 @@ Get both incoming and outgoing edges of the vertex.
 (q/query (g/find-by-id 4)
          q/<E>
          q/into-vec!)
-;;[#<TinkerEdge e[8][1-knows->4]> 
-;; #<TinkerEdge e[10][4-created->5]> 
-;; #<TinkerEdge e[11][4-created->3]>]
+;= [#<TinkerEdge e[8][1-knows->4]> 
+;=  #<TinkerEdge e[10][4-created->5]> 
+;=  #<TinkerEdge e[11][4-created->3]>]
 ```
 
 ### both-vertices
@@ -148,9 +148,9 @@ Get both incoming and outgoing vertices of the edge.
          q/<E>
          q/both-vertices
          q/into-vec!)
-;;[#<TinkerVertex v[1]> #<TinkerVertex v[4]> 
-;; #<TinkerVertex v[4]> #<TinkerVertex v[5]> 
-;; #<TinkerVertex v[4]> #<TinkerVertex v[3]>]
+;= [#<TinkerVertex v[1]> #<TinkerVertex v[4]> 
+;=  #<TinkerVertex v[4]> #<TinkerVertex v[5]> 
+;=  #<TinkerVertex v[4]> #<TinkerVertex v[3]>]
 ```
 
 ### Map like functions are next

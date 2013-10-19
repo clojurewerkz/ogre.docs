@@ -20,7 +20,7 @@ Go back to the results from n-steps ago.
          q/-->      
          (q/back 1) 
          q/into-vec!)
-;;[#<TinkerVertex v[1]>]
+;= [#<TinkerVertex v[1]>]
 ```
 
 ### as/back-to
@@ -33,7 +33,7 @@ Go back to the results from n-steps ago.
          q/-->      
          (q/back-to "here")         
          q/into-vec!)
-;;[#<TinkerVertex v[1]>]         
+;= [#<TinkerVertex v[1]>]         
 ```
 
 
@@ -49,8 +49,8 @@ round robin style.
          (q/as "b")
          q/select
          q/all-into-maps!)
-;;({:a #<TinkerVertex v[1]>, :b #<TinkerVertex v[2]>} 
-;; {:a #<TinkerVertex v[1]>, :b #<TinkerVertex v[4]>})
+;= ({:a #<TinkerVertex v[1]>, :b #<TinkerVertex v[2]>} 
+;=  {:a #<TinkerVertex v[1]>, :b #<TinkerVertex v[4]>})
 
 (q/query (g/find-by-id 1)
          (q/as "a")
@@ -58,7 +58,7 @@ round robin style.
          (q/as "b")
          (q/select (q/prop :name))
          q/all-into-maps!)
-;;({:a "marko", :b "vadas"} {:a "marko", :b "josh"})
+;= ({:a "marko", :b "vadas"} {:a "marko", :b "josh"})
 
 (q/query (g/find-by-id 1)
          (q/as "a")
@@ -66,7 +66,7 @@ round robin style.
          (q/as "b")
          (q/select (q/prop :name) g/get-id)
          q/all-into-maps!)
-;;({:a "marko", :b "2"} {:a "marko", :b "4"})
+;= ({:a "marko", :b "2"} {:a "marko", :b "4"})
 ```
 
 ### select-only
@@ -83,8 +83,8 @@ processing again.
          (q/as "c")       
          (q/select-only ["a" "b"])
          q/all-into-maps!)
-;;({:a #<TinkerVertex v[1]>, :b #<TinkerVertex v[4]>} 
-;; {:a #<TinkerVertex v[1]>, :b #<TinkerVertex v[4]>})
+;= ({:a #<TinkerVertex v[1]>, :b #<TinkerVertex v[4]>} 
+;=  {:a #<TinkerVertex v[1]>, :b #<TinkerVertex v[4]>})
 
 
 (q/query (g/find-by-id 1)
@@ -95,7 +95,7 @@ processing again.
          (q/as "c")       
          (q/select-only ["a" "c"] (q/prop :name))
          q/all-into-maps!)
-;;({:a "marko", :c "ripple"} {:a "marko", :c "lop"})
+;= ({:a "marko", :c "ripple"} {:a "marko", :c "lop"})
 
 (q/query (g/find-by-id 1)
          (q/as "a")
@@ -105,7 +105,7 @@ processing again.
          (q/as "c")                
          (q/select-only ["a" "c"] (q/prop :name) g/get-id)
          q/all-into-maps!)
-;;({:a "marko", :c "5"} {:a "marko", :c "3"})
+;= ({:a "marko", :c "5"} {:a "marko", :c "3"})
 ```
 
 ### loop
@@ -123,7 +123,7 @@ true, the loop continues on it's merry way.
                  (fn [l o p] (< l 3)))
          (q/property :name)
          (q/into-vec!))                           
-;;["ripple" "lop"]
+;= ["ripple" "lop"]
 ```                  
                 
 ### loop-to
@@ -139,7 +139,7 @@ instead.
                  (fn [l o p] (< l 3)))
          (q/property :name)
          (q/into-vec!))                           
-;;["ripple" "lop"]
+;= ["ripple" "lop"]
 ```                  
 
 *** 
