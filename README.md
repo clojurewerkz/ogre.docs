@@ -25,6 +25,6 @@ In order to modify contents and launch dev environment, run:
 
 ## License & Copyright
 
-Copyright (C) 2013 Alexander Petrov, Michael S. Klishin.
+Copyright (C) 2014 Alexander Petrov, Michael S. Klishin.
 
 Distributed under the Eclipse Public License, the same as Clojure.
