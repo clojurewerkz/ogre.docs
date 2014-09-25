@@ -49,7 +49,7 @@ gathered list with the provided function.
          q/id
          (q/gather count)
          q/into-vec!)
-;= 3
+;= [3]
 ```
 
 ### Filters are next
