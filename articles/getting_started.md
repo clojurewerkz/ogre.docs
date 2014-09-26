@@ -66,12 +66,12 @@ leiningen: `[clojurewerkz/ogre "2.3.0.2"]`.
 
 ### The TinkerGraph
 
-Unless otherwise noted, all samples reference `ogre.tinkergraph` and
-`ogre.core` as follows:
+Unless otherwise noted, all samples reference `clojurewerkz.ogre.tinkergraph` and
+`clojurewerkz.ogre.core` as follows:
 
 ```clojure 
-(require '[ogre.tinkergraph :as g]) 
-(require '[ogre.core :as q]) 
+(require [clojurewerkz.ogre.tinkergraph :as g]) 
+(require [clojurewerkz.ogre.core :as q]) 
 
 (g/use-new-tinker-graph!)
 ```
@@ -127,8 +127,8 @@ that the starting vertex points out to, and then returns the result in
 a vector.
 
 ``` clojure
-(require '[ogre.tinkergraph :as g]) 
-(require '[ogre.core :as q]) 
+(require [clojurewerkz.ogre.tinkergraph :as g]) 
+(require [clojurewerkz.ogre.core :as q]) 
 
 (g/use-new-tinker-graph!)
 

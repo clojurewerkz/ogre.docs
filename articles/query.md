@@ -23,17 +23,30 @@ structures.
 ;= 3
 ``` 
 
-### to-list!
+### into-lazy-seq!
 
-This is the Grand Daddy of most Executors. It calls `.toList` on the
-Gremlin pipeline and gets back the list of Java objects. You probably
-don't want to use this directly. 
+Gets the objects and returns them inside a lazy sequence.
+``` clojure
+(type (q/query (g/find-by-id 1)
+         q/-->
+         q/into-lazy-seq!))
+;= clojure.lang.Cons
+
+(first (q/query (g/find-by-id 1)
+         q/-->
+         q/into-lazy-seq!))
+;= #<TinkerVertex v[2]>
+```
+
+### into-list!
+
+Gets the objects and sticks them inside of a list. 
 
 ``` clojure
 (q/query (g/find-by-id 1)
          q/-->
-         q/to-list!)
-;= #<ArrayList [v[2], v[4], v[3]]>
+         q/into-list!)
+;= (#<TinkerVertex v[3]> #<TinkerVertex v[4]> #<TinkerVertex v[2]>)
 ``` 
 
 ### into-vec!

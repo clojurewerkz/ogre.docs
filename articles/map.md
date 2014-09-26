@@ -73,7 +73,7 @@ Get the property map of the graph element.
 (q/query (g/find-by-id 1)
          q/map
          q/into-vec!)
-;= [#<HashMap {name=marko, age=29}>]
+;= [{"name" "marko", "age" 29}]
 
 (q/query (g/find-by-id 1)
          q/map
