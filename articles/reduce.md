@@ -31,6 +31,18 @@ function is provided, then a default sort order is used.
 ;= ["vadas" "ripple" "peter" "marko" "lop" "josh"]
 ```
 
+### reverse
+
+Reverses the order of items in the stream.
+
+```clojure
+(q/query (g/get-vertices)
+         (q/property :name)
+         q/order
+         q/into-vec!)      
+;= ["vadas" "ripple" "peter" "marko" "lop" "josh"]
+```
+
 ### gather
 
 Collect all objects up to that step and, optionally, process the
