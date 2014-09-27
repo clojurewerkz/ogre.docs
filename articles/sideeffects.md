@@ -84,8 +84,8 @@ round robin style.
 
 ### get-tree!
 
-Returns a tree of the objects encountered taken while executing the query. Key
-functions can be supplied as well. 
+Returns a tree of the objects encountered taken while executing the
+query. Key functions can be supplied as well.
 
 ```clojure
 (q/query (g/find-by-id 1)

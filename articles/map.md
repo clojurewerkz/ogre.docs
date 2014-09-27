@@ -1,5 +1,5 @@
 ---
-title: "Map like functions in Ogre, a graph query library"
+title: "Map-like functions in Ogre, a graph query library"
 layout: article
 ---
 
@@ -59,7 +59,7 @@ Get the label of an edge.
 
 ``` clojure
 (q/query (g/find-by-id 1)
-         q/--E>
+         q/-E>
          q/label
          q/into-vec!)
 ;= ["knows" "knows" "created"]
@@ -155,7 +155,7 @@ Transform applies a function to each object.
 ;= "marko"         
 
 (q/query (g/find-by-id 1)
-          q/--E>
+          q/-E>
           q/label
           (q/transform count)
           q/into-vec!)         

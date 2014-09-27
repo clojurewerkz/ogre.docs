@@ -112,6 +112,9 @@ Gets the first object of the returned list and puts it into a set.
 ;= #{"2" "3" "4"}         
 ```
 
+`gather` collects all objects up to that step; see
+[reduce-like functions](/articles/reduce.html) for more examples.
+
 ### first-into-map!
 
 Gets the first object of the returned list and puts it into a set. 
@@ -171,6 +174,6 @@ objects.
 ;=  {:name "peter", :age 35})         
 ```                        
 
-### Reduce like functions are next
+### Reduce-like functions are next
 
-You should [read about reduce like functions next](/articles/reduce.html). 
+You should [read about reduce-like functions next](/articles/reduce.html). 

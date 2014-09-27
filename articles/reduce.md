@@ -1,9 +1,9 @@
 ---
-title: "Executing queries in Ogre, a graph query library"
+title: "Reduce-like functions in Ogre, a graph query library"
 layout: article
 ---
 
-## Reduce like functions
+## Reduce-like functions
 
 These functions sort of act like `clojure.core/reduce`.
 

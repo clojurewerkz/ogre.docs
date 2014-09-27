@@ -70,8 +70,8 @@ Unless otherwise noted, all samples reference `clojurewerkz.ogre.tinkergraph` an
 `clojurewerkz.ogre.core` as follows:
 
 ```clojure 
-(require [clojurewerkz.ogre.tinkergraph :as g]) 
-(require [clojurewerkz.ogre.core :as q]) 
+(require '[clojurewerkz.ogre.tinkergraph :as g]) 
+(require '[clojurewerkz.ogre.core :as q]) 
 
 (g/use-new-tinker-graph!)
 ```
@@ -90,11 +90,11 @@ It will serve as the main reference for the majority of the examples below.
 
 ### So what does Ogre actually do? 
 
-At a high level, Ogre let's you easily ask complex questions about
+At a high level, Ogre lets you easily ask complex questions about
 certain types of graphs and get back answers. That's it.
 
 At a low level, Ogre is a library that takes in Blueprint Vertices and
-Edges and let's you build up GremlinPipeline objects that ask
+Edges and lets you build up GremlinPipeline objects that ask
 questions about those objects in the language of traversals,
 transformations, filters, and branching on the graph. Ogre allows you
 to annotate various steps of the pipeline to allow for incredibly
@@ -107,7 +107,7 @@ JVM as a Turing machine. Poor gal.
 
 ### Reading this documentation
 
-This series of guide is organized to be read mostly linearly. That
+This series of guides is organized to be read mostly linearly. That
 means that you can probably read it from start to finish and
 understand what is going on. We start from the basics, with
 traversals, transformations, query executions, and filters. Then we
@@ -120,15 +120,15 @@ meant to be run and experimented with.
 
 ### Building queries 
 
-Ogre let's you build up Gremlin queries from scratch. The main method
+Ogre lets you build up Gremlin queries from scratch. The main method
 for doing this is `q/query`. Here is a simple query on the
 Tinkergraph. It takes in the vertex with id `1`, finds the vertices
 that the starting vertex points out to, and then returns the result in
 a vector.
 
 ``` clojure
-(require [clojurewerkz.ogre.tinkergraph :as g]) 
-(require [clojurewerkz.ogre.core :as q]) 
+(require '[clojurewerkz.ogre.tinkergraph :as g]) 
+(require '[clojurewerkz.ogre.core :as q]) 
 
 (g/use-new-tinker-graph!)
 
