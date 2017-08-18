@@ -8,174 +8,174 @@ layout: article
 
 ### Introduction to Ogre
 
-[Ogre](http://github.com/clojurewerkz/ogre) is a domain specific
-language for traversing property graphs in
-[Clojure](http://clojure.org/). Ogre wraps
-[Gremlin](https://github.com/tinkerpop/gremlin/wiki), a library which
-enables
-[all sorts of groovy ways to work with graphs](http://gremlindocs.com/).
-The documentation and samples presented here attempt to stay current
-with the most current, stable release of Ogre. Please join the
-[Titanium users group](https://groups.google.com/forum/#!forum/clojure-titanium)
-for Ogre related discussions. Please use the
-[Ogre issue page](https://github.com/clojurewerkz/ogre/issues) for
-reporting bugs and discussing features. For any errors or corrections
-with this documentation, please use the
-[issue page](https://github.com/clojurewerkz/ogre.docs). Pull requests
-will be celebrated, scrutinized, and hopefully accepted. Ogre
-currently powers
-[Archimedes](https://github.com/clojurewerkz/archimedes), a Clojure
-library for
-[Blueprints](https://github.com/tinkerpop/blueprints/wiki), and
-[Titanium](https://github.com/clojurewerkz/titanium), a Clojure
-library built on top of Archimedes for working with
-[Titan](http://thinkaurelius.github.com/titan/).
+[Ogre](http://github.com/clojurewerkz/ogre) is a Clojure wrapper for 
+[Apache TinkerPop's](https://tinkerpop.apache.org) graph traversal 
+language, [Gremlin](https://tinkerpop.apache.org/gremlin.html). This 
+documentation assumes that its audience has an existing knowledge of 
+TinkerPop concepts and the Gremlin language syntax. 
 
-### The Tinkerpop stack
+<a href="http://tinkerpop.apache.org/gremlin.html">
+  <img src="https://raw.githubusercontent.com/apache/tinkerpop/master/docs/static/images/gremlin-running.png" style="width: 120px" alt="Gremlin"/>
+</a>
 
-Before going down the rabbit hole, we offer the briefest of warnings:
-the [Tinkerpop folks](https://github.com/tinkerpop?tab=members) have
-been working on Gremlin,
-[Pipes](https://github.com/tinkerpop/pipes/wiki), and
-[Blueprints](https://github.com/tinkerpop/blueprints/wiki) for a few
-years now and the stack has become incredibly intertwined. Ogre and
-[Archimedes](https://github.com/clojurewerkz/archimedes) try to hide
-all of this from you at some hide level, but every abstraction leaks.
-Your stack traces will speak of `com.tinkerpop.blueprints.Vertex` and
-`com.tinkerpop.gremlin.GremlinPipeline`, and there is nothing we can
-(well, should) do about it. The Tinkerpop stack is fantastic and
-really well done, but we wanted to warn you that the following is just
-the tip of the iceberg in terms of what you will need to know to
-understand what is really going on when you use Ogre.
+To get an idea of how Ogre helps make Gremlin easier to work with in 
+Clojure, let's convert a basic Gremlin traversal into an Ogre traversal.
+Consider the following Gremlin traversal written in Java:
 
-Thankfully, it's a joy to work with the stack. So, let's get started!
+```groovy
+g.V().has("name","gremlin").         // Get the vertex with the name "gremlin"
+  out("knows").                      // Traverse to people who Gremlin knows
+  out("knows").                      // Traverse to the people those people know
+  values("name")                     // Get the names of those people
+```
+  
+In Ogre this traversal is written as:
 
-### leiningen
+```clojure
+(traverse g V (has :name "gremlin")  ;; Get the vertex with the name "gremlin"
+            (out :knows)             ;; Traverse to people who Gremlin knows
+            (out :knows)             ;; Traverse to the people those people know
+            (values :name))          ;; Get the names of those people
+```
+
+The flow of Ogre maps quite naturally to that of Gremlin written in Java and 
+this approach is quite typical of Ogre in most cases though there are a few 
+areas of minor step naming differences to be better in line with Clojure.
+
+### The REPL
+
+Gremlin is commonly used in the [Gremlin Console](http://tinkerpop.apache.org/docs/current/tutorials/the-gremlin-console/)
+which is a Groovy-based REPL. Gremlin is quite at home in that style of environment 
+so this documentation will be make heavy use of the Clojure REPL to explain Ogre
+usage.
+
+```text
+user=> (load "clojurewerkz/ogre/core") 
+nil
+user=> (in-ns 'clojurewerkz.ogre.core)
+#object[clojure.lang.Namespace 0x228e9715 "clojurewerkz.ogre.core"]
+clojurewerkz.ogre.core=> (import '[org.apache.tinkerpop.gremlin.tinkergraph.structure TinkerGraph TinkerFactory])
+org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerGraph
+```
+
+Note that [TinkerGraph](http://tinkerpop.apache.org/docs/current/reference/#tinkergraph-gremlin)
+was imported as a sample graph for purpose of this documentation, but obviously any TinkerPop-enabled
+graph would suffice.
+
+Unless otherwise noted, the code in the following sections will assume that the
+REPL was initialized as shown above. 
+
+### Getting a Graph Instance
+
+Getting a `Graph` instance is the first step to working with Gremlin and 
+therefore is the first step to working with Ogre. Ogre provides a wrapper around
+TinkerPop's `GraphFactory`, which provides a provider-agnostic way to create 
+graphs. The following code will create a TinkerGraph instance with Ogre:
+
+```text
+clojurewerkz.ogre.core=> (def graph (open-graph {(Graph/GRAPH) (.getName TinkerGraph)}))
+#'clojurewerkz.ogre.core/graph
+```
+
+In the above example `open-graph` takes a `Map` of arguments which is the configuration
+object that `GraphFactory` accepts in its `openGraph()` method. Obviously, it would also
+be possible to simply instantiate the TinkerGraph directly as follows:
+
+```text
+clojurewerkz.ogre.core=> (def graph (TinkerGraph/open))
+#'clojurewerkz.ogre.core/graph
+```
+
+While the second method is more straightforward it is specific to TinkerGraph. Not all
+`Graph` instances will be instantiated that way. Unless otherwise noted, this documentation 
+will focus on traversals that work with the [modern graph](http://tinkerpop.apache.org/docs/current/tutorials/the-gremlin-console/#toy-graphs)
+which is a small sample dataset that is provided by TinkerPop. This data can be loaded 
+into the `graph` instances as follows:
+
+```text
+clojurewerkz.ogre.core=> (TinkerFactory/generateModern graph)
+nil
+clojurewerkz.ogre.core=> graph
+#object[org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerGraph 0x6e362190 "tinkergraph[vertices:6 edges:6]"]
+```
+
+For purpose of this documentation and experimentation all of the above could be simplified
+to:
+
+```text
+clojurewerkz.ogre.core=> (def graph (TinkerFactory/createModern))    ;; graph = TinkerFactory.createModern()
+#'clojurewerkz.ogre.core/graph
+clojurewerkz.ogre.core=> graph
+#object[org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerGraph 0x75eeb446 "tinkergraph[vertices:6 edges:6]"]
+```
+
+### The Traversal
+
+With a `Graph` instance and some data in place it is now possible to execute some traversals. 
+As with Gremlin, Ogre needs a `TraversalSource` object. A basic `TraversalSource` can be 
+constructed with:
+
+```text
+clojurewerkz.ogre.core=> (def g (traversal graph))    ;; graph.traversal()
+#'clojurewerkz.ogre.core/g
+```
+
+The familiar `g` becomes the cornerstone of traversing that Gremlin users are familiar with. Consider
+the following Gremlin Java based traversal:
+
+```java
+g.V().values("name")
+```
+
+The above traversal can be written in Ogre as:
+
+```text
+clojurewerkz.ogre.core=> (traverse g V (values "name") (into-seq!))
+("marko" "vadas" "lop" "josh" "ripple" "peter")
+clojurewerkz.ogre.core=> (traverse g V (values :name) (into-seq!))
+("marko" "vadas" "lop" "josh" "ripple" "peter")
+```
+
+The `traverse` function takes a `TraversalSource` and the sequence of traversal steps that make
+up the traversal. There are two important things to note. First, property keys can be specified 
+as a string, as in `"name"` or as a keyword `:name`. The latter can be a bit nicer in Clojure.
+Second, the statement is concluded with a terminator, in this case `(into-seq!)` which iterates
+the traversal into a Clojure sequence. There are a number of such terminator functions available
+including:
+
+* `into-seq!`
+* `into-list!`
+* `into-vec!`
+* `into-set!`
+* `iterate!`
+* `next!`
+
+The point with these terminators is that just like Gremlin in any other language, Ogre does 
+not iterate a `Traversal` for you. It is an `Iterator` ultimately and it is up to the developer
+to decide how it should be treated.
+
+The previous example showed that Ogre can use keywords for property keys, but they can be 
+also be used in other areas as well:
+
+```text
+clojurewerkz.ogre.core=> (traverse g V (has :name "marko") (out :created) (values :name) (into-seq!))
+("lop")
+clojurewerkz.ogre.core=> (traverse g V (has :name "marko") (as :a) (out :knows) (as :b) (select :a :b) (by :name) (into-seq!))
+({"a" "marko", "b" "vadas"} {"a" "marko", "b" "josh"})
+```
+
+Gremlin has a number of [steps](http://tinkerpop.apache.org/docs/current/reference/#graph-traversal-steps) 
+all of which are supported by Ogre. As the documentation of Ogre grows it may come to cover all of those 
+steps, but for now it will be best to look at the Ogre [unit tests](https://github.com/clojurewerkz/ogre/tree/master/test/clojure/clojurewerkz/ogre/suite)
+when syntax isn't clear. As Ogre implements the TinkerPop Process Test Suite, it will always have a complete
+body of examples to examine.
+
+### Versioning
 
 The version scheme for Ogre is as follows:
-`[Full Gremlin version].[Ogre major version]`. Philosophically, the
-authors of Gremlin are the ones who will be causing most of the
-changes to Ogre to hapepn. Ogre is a mere wrapper around their work
-and the version scheme acknowledges that directly. Thus, the current
-release is `2.3.0.2`, meaning that the current release uses Gremlin
-`2.3.0` and has undergone two major versions itself so far since
-release.
-
-To get started with Ogre, include the following dependency for
-leiningen: `[clojurewerkz/ogre "2.3.0.2"]`.
-
-### The TinkerGraph
-
-Unless otherwise noted, all samples reference `clojurewerkz.ogre.tinkergraph` and
-`clojurewerkz.ogre.core` as follows:
-
-```clojure 
-(require '[clojurewerkz.ogre.tinkergraph :as g]) 
-(require '[clojurewerkz.ogre.core :as q]) 
-
-(g/use-new-tinker-graph!)
-```
-
-`g/use-new-tinker-graph!` creates the following graph and secretly
-squirrels it away
-[_somewhere_](https://github.com/clojurewerkz/ogre/blob/master/src/ogre/tinkergraph.clj#L10)
-(image from
-[here](http://github.com/tinkerpop/blueprints/wiki/Property-Graph-Model)):
-
-<img src="https://github.com/tinkerpop/blueprints/raw/master/doc/images/graph-example-1.jpg"></img>
-
-We recommend that you open this image up into a
-[new tab](https://github.com/tinkerpop/blueprints/raw/master/doc/images/graph-example-1.jpg).
-It will serve as the main reference for the majority of the examples below. 
-
-### So what does Ogre actually do? 
-
-At a high level, Ogre lets you easily ask complex questions about
-certain types of graphs and get back answers. That's it.
-
-At a low level, Ogre is a library that takes in Blueprint Vertices and
-Edges and lets you build up GremlinPipeline objects that ask
-questions about those objects in the language of traversals,
-transformations, filters, and branching on the graph. Ogre allows you
-to annotate various steps of the pipeline to allow for incredibly
-useful queries in a few terse lines. Ogre also carefully deals with some of
-the side effects that the Gremlin library can launch. 
-
-At the lowest level, Ogre is probably equivalent to some crazy Turing
-machine. Some poor grad student has probably had to try and write the
-JVM as a Turing machine. Poor gal.
-
-### Reading this documentation
-
-This series of guides is organized to be read mostly linearly. That
-means that you can probably read it from start to finish and
-understand what is going on. We start from the basics, with
-traversals, transformations, query executions, and filters. Then we
-transition into the more advanced topics of annotations and side
-effects. At the same time, this documentation is meant to serve as a
-reference for anyone using the library. These examples were are
-developed at the command line or inside emacs with a REPL, so they are
-meant to be run and experimented with.
-
-
-### Building queries 
-
-Ogre lets you build up Gremlin queries from scratch. The main method
-for doing this is `q/query`. Here is a simple query on the
-Tinkergraph. It takes in the vertex with id `1`, finds the vertices
-that the starting vertex points out to, and then returns the result in
-a vector.
-
-``` clojure
-(require '[clojurewerkz.ogre.tinkergraph :as g]) 
-(require '[clojurewerkz.ogre.core :as q]) 
-
-(g/use-new-tinker-graph!)
-
-(q/query (g/find-by-id 1)
-         q/-->
-         q/into-vec!)
-;= [#<TinkerVertex v[2]> #<TinkerVertex v[4]> #<TinkerVertex v[3]>]
-```
-
-Let's break this down: 
-
-* `q/query` is a
-  [simple macro combining](https://github.com/clojurewerkz/ogre/blob/master/src/ogre/util.clj#L13)
-  of `->` and `(GremlinPipeline.)`. It takes in a single element or a
-  Collection and creates a new pipeline around them.
-* `g/find-by-id` is a function that goes and asks the vertex for the
-  element of id 1. 
-* `q/-->` is a function which adds on an outwards traversal step to
-  the pipe. This means that the Gremlin query will take all the
-  vertices it is currently thinking about and then think about all the
-  vertices that the vertices in it's mind pointed to.
-* `q/into-vec!` executes the query and returns the results inside of a
-  vector. Before this call, the Gremlin query hasn't actually done
-  anything yet. Only when a function that ends with a bang is passed
-  in does anything actually happen beyond just a GremlinPipeline
-  getting built up. 
-
-So far so good. But, I wonder, who is the dashing rogue behind
-`#<TinkerVertex v[2]>`?
-
-``` clojure
-(q/query (g/find-by-id 1)
-         q/-->
-         q/into-vec!
-         first
-         ((q/prop :name)))
-;= "vadas"
-```
-
-`q/query` isn't just about running Gremlin queries. Remember, it's
-really just a glorified `->`, and a bunch of provided helper
-functions. That means we can stick a `first` in there to get the first
-vertex of the vector. `(q/prop :name)` takes a property key and
-returns a function which takes a vertex and returns the given
-property. Thus, `"vadas"` is the charming face of `#<TinkerVertex
-v[2]>`.
-
-### Traversals are next
-
-You should [read about traversals next](/articles/traversals.html). 
+`[Full TinkerPop version].[Ogre major version]`. Philosophically, releases of
+TinkerPop will typically trigger releases in Ogre. Ogre is a mere wrapper 
+around that body of work and the version scheme acknowledges that dependency 
+directly. Thus, an Ogre release of `3.2.4.2`, would mean that the current 
+release uses Gremlin `3.2.4` and has undergone two major versions itself so far 
+since release.

@@ -5,10 +5,10 @@ layout: article
 
 ## Mailing List
 
-[Titanium has a mailing list](https://groups.google.com/forum/#!forum/clojure-titanium)
-that we suggest you direct all Ogre related questions to. Feel free to
-join it and ask any questions you may have.
-
+Ogre related questions can be directeod to the [Titanium](http://titanium.clojurewerkz.org/) 
+[mailing list](https://groups.google.com/forum/#!forum/clojure-titanium). These projects 
+were merged (in a sense) after [Apache TinkerPop](https://tinkerpop.apache.org) 3.x released.
+Feel free to join it and ask any questions you may have. 
 
 ## News & Announcements on Twitter
 
