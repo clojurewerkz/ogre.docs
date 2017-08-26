@@ -4,19 +4,46 @@ layout: article
 ---
 
 
-## Getting Started 
+## Getting Started
 
-### Introduction to Ogre
-
-[Ogre](http://github.com/clojurewerkz/ogre) is a Clojure wrapper for 
-[Apache TinkerPop's](https://tinkerpop.apache.org) graph traversal 
-language, [Gremlin](https://tinkerpop.apache.org/gremlin.html). This 
-documentation assumes that its audience has an existing knowledge of 
-TinkerPop concepts and the Gremlin language syntax. 
+[Ogre](http://github.com/clojurewerkz/ogre) is a Clojure wrapper for the
+[Gremlin](https://tinkerpop.apache.org/gremlin.html)  graph traversal language of 
+[Apache TinkerPop&trade;](https://tinkerpop.apache.org). This documentation assumes that
+its audience has an existing knowledge of TinkerPop concepts and the Gremlin language syntax. 
 
 <a href="http://tinkerpop.apache.org/gremlin.html">
   <img src="https://raw.githubusercontent.com/apache/tinkerpop/master/docs/static/images/gremlin-running.png" style="width: 120px" alt="Gremlin"/>
 </a>
+
+### Installing
+
+Orge artifacts are [released to Clojars](https://clojars.org/clojurewerkz/ogre). Maven users should add the 
+following repository definition to your pom.xml:
+
+```xml
+<repository>
+  <id>clojars.org</id>
+  <url>http://clojars.org/repo</url>
+</repository> 
+```
+
+With Leiningen:
+
+```clojure
+[clojurewerkz/ogre "3.2.4.0"]
+```
+
+With Maven:
+
+```xml
+<dependency>
+  <groupId>clojurewerkz</groupId>
+  <artifactId>ogre</artifactId>
+  <version>3.2.4.0</version>
+</dependency>
+```
+
+### Introduction to Ogre
 
 To get an idea of how Ogre helps make Gremlin easier to work with in 
 Clojure, let's convert a basic Gremlin traversal into an Ogre traversal.
