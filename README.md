@@ -13,7 +13,7 @@ With Bundler:
 
 ## How to run a development server
 
-    ./bin/jekyll --auto --server
+    ./bin/jekyll serve --watch
 
 
 ## How to regenerate the site
