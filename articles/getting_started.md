@@ -30,7 +30,7 @@ following repository definition to your pom.xml:
 With Leiningen:
 
 ```clojure
-[clojurewerkz/ogre "3.2.4.0"]
+[clojurewerkz/ogre "3.2.5.0"]
 ```
 
 With Maven:
@@ -39,7 +39,7 @@ With Maven:
 <dependency>
   <groupId>clojurewerkz</groupId>
   <artifactId>ogre</artifactId>
-  <version>3.2.4.0</version>
+  <version>3.2.5.0</version>
 </dependency>
 ```
 
